@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProbSet_DISCM", "ProbSet_DISCM\ProbSet_DISCM.vcxproj", "{535089A4-43C9-462C-8E07-D379AF23E134}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{535089A4-43C9-462C-8E07-D379AF23E134}.Debug|x64.ActiveCfg = Debug|x64
+		{535089A4-43C9-462C-8E07-D379AF23E134}.Debug|x64.Build.0 = Debug|x64
+		{535089A4-43C9-462C-8E07-D379AF23E134}.Debug|x86.ActiveCfg = Debug|Win32
+		{535089A4-43C9-462C-8E07-D379AF23E134}.Debug|x86.Build.0 = Debug|Win32
+		{535089A4-43C9-462C-8E07-D379AF23E134}.Release|x64.ActiveCfg = Release|x64
+		{535089A4-43C9-462C-8E07-D379AF23E134}.Release|x64.Build.0 = Release|x64
+		{535089A4-43C9-462C-8E07-D379AF23E134}.Release|x86.ActiveCfg = Release|Win32
+		{535089A4-43C9-462C-8E07-D379AF23E134}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {37A777C8-B319-42C0-BB75-78823F8D59C2}
+	EndGlobalSection
+EndGlobal
