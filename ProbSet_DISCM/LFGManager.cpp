@@ -106,4 +106,10 @@ void LFGManager::start() {
 
     // Print summary
     printSummary();
+
+    // Print remaining players in the queue
+    std::cout << "\n--- Remaining Players ---\n";
+    std::cout << "Tanks left: " << tankQueue.size() << "\n";
+    std::cout << "Healers left: " << healerQueue.size() << "\n";
+    std::cout << "DPS left: " << dpsQueue.size() << "\n";
 }

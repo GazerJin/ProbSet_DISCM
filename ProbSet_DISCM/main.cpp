@@ -48,6 +48,13 @@ int main() {
 
     // Get and validate inputs
     n = getUnsignedIntegerInput("Enter maximum number of concurrent instances (n): ");
+
+    // Additional validation: Ensure n > 0
+    while (n == 0) {
+        std::cerr << "Invalid input. The number of instances (n) must be greater than 0.\n";
+        n = getUnsignedIntegerInput("Enter maximum number of concurrent instances (n): ");
+    }
+
     t = getUnsignedIntegerInput("Enter number of tank players in the queue (t): ");
     h = getUnsignedIntegerInput("Enter number of healer players in the queue (h): ");
     d = getUnsignedIntegerInput("Enter number of DPS players in the queue (d): ");
