@@ -14,7 +14,6 @@ void LFGManager::processParty(int instanceIndex) {
 
     {
         std::lock_guard<std::mutex> lock(mtx);
-        instances[instanceIndex].isActive = true; // Mark instance as active
         instances[instanceIndex].partiesServed++;
         instances[instanceIndex].totalTimeServed += randomTime;
     }
@@ -44,36 +43,53 @@ void LFGManager::start() {
     for (int i = 0; i < h; ++i) healerQueue.push(i);
     for (int i = 0; i < d; ++i) dpsQueue.push(i);
 
-    std::vector<std::thread> threads;
+    // Check if there are enough players to form at least one party
+    if (t == 0 || h == 0 || d < 3) {
+        std::cerr << "Error: Not enough players to form any parties.\n";
+        return;
+    }
 
-    while (!tankQueue.empty() && !healerQueue.empty() && !dpsQueue.empty()) {
+    std::vector<std::thread> threads;
+    int nextInstance = 0;
+
+    while (!tankQueue.empty() && !healerQueue.empty() && dpsQueue.size() >= 3) {
         std::unique_lock<std::mutex> lock(mtx);
 
         // Wait until there is at least one free instance
         cv.wait(lock, [this]() {
-            for (const auto& instance : instances) {
-                if (!instance.isActive) return true;
-            }
-            return false;
+            return std::any_of(instances.begin(), instances.end(), [](const Instance& inst) { return !inst.isActive; });
             });
 
-        // Find the first available instance
+        // Find the next available instance in a round-robin manner
         int instanceIndex = -1;
         for (int i = 0; i < n; ++i) {
-            if (!instances[i].isActive) {
-                instanceIndex = i;
+            int idx = (nextInstance + i) % n;
+            if (!instances[idx].isActive) {
+                instanceIndex = idx;
                 break;
             }
         }
 
         if (instanceIndex != -1) {
+            // Mark the instance as active before starting the thread
+            instances[instanceIndex].isActive = true;
+
             // Remove players from queues
             tankQueue.pop();
             healerQueue.pop();
-            for (int i = 0; i < 3; ++i) dpsQueue.pop();
+            for (int i = 0; i < 3; ++i) {
+                dpsQueue.pop();
+            }
 
-            // Start processing the party in a new thread
+            // Assign the party to the instance
+            nextInstance = (instanceIndex + 1) % n; // Update round-robin index
             threads.emplace_back(&LFGManager::processParty, this, instanceIndex);
+
+            // Print intermediate status
+            std::cout << "\n--- Instance Status ---\n";
+            for (int i = 0; i < n; ++i) {
+                std::cout << "Instance " << i + 1 << ": " << (instances[i].isActive ? "active" : "empty") << "\n";
+            }
         }
     }
 

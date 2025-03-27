@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
+#include <limits>
 
 // Function to validate and get unsigned integer input
 unsigned int getUnsignedIntegerInput(const std::string& prompt) {
